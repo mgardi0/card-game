@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College War: The Ramadan Crisis</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rudaw&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="loader-screen">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <h2>خەریکی ئامادەکردنی هۆڵی تاقیکردنەوە...</h2>
+            <p id="loading-text">چاودێری دەکرێت...</p>
+        </div>
+    </div>
+
+    <div id="main-menu">
+        <div class="menu-overlay"></div>
+        <div class="menu-content">
+            <h1 class="game-title">جەنگی کۆلێژ 🎓</h1>
+            <h2 class="game-subtitle">وەشانی ڕەمەزان</h2>
+            
+            <div class="menu-options">
+                <button class="menu-btn start-btn" onclick="startGame()">دەستپێکردن 🎮</button>
+                <button class="menu-btn settings-btn" onclick="showSettings()">ڕێکخستنەکان ⚙️</button>
+                <button class="menu-btn credit-btn" onclick="alert('Developed by: INTJ Student')">دەربارە ℹ️</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-scene" class="hidden">
+        
+        <div class="hud-top">
+            <div class="turn-badge" id="turn-indicator">ئامادەبە...</div>
+            <div class="game-timer">
+                <span>کات: </span>
+                <span id="timer-display">00:00</span>
+            </div>
+            <div class="round-counter">گەڕی: <span id="round-num">1</span></div>
+        </div>
+
+        <div class="room-container">
+            <div class="table-wrapper">
+                
+                <div class="game-table">
+                    <div class="table-texture"></div>
+                    <div class="center-logo">🎓</div>
+
+                    <div class="play-zone" id="play-zone">
+                        <div class="zone-label">مەیدانی جەنگ</div>
+                        </div>
+
+                    <div class="opponent opponent-left" id="bot-1">
+                        <div class="bot-avatar">
+                            <img src="https://img.icons8.com/emoji/96/000000/man-raising-hand.png" alt="Talib">
+                            <div class="status-icon hidden">🛡️</div>
+                        </div>
+                        <div class="bot-info">
+                            <span class="bot-name">تالیب (نوێنەر)</span>
+                            <div class="health-bar">
+                                <div class="health-fill" id="hp-bot-1" style="width: 100%;"></div>
+                            </div>
+                            <span class="hp-text" id="text-bot-1">100%</span>
+                        </div>
+                        <div class="bot-hand-visual left-hand">
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                        </div>
+                    </div>
+
+                    <div class="opponent opponent-top" id="bot-2">
+                        <div class="bot-avatar boss-avatar">
+                            <img src="https://img.icons8.com/emoji/96/000000/man-teacher.png" alt="Teacher">
+                            <div class="status-icon hidden">💢</div>
+                        </div>
+                        <div class="bot-info">
+                            <span class="bot-name">پڕۆفیسۆر شێرکۆ</span>
+                            <div class="health-bar">
+                                <div class="health-fill boss-fill" id="hp-bot-2" style="width: 100%;"></div>
+                            </div>
+                            <span class="hp-text" id="text-bot-2">150%</span>
+                        </div>
+                         <div class="bot-hand-visual top-hand">
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                        </div>
+                    </div>
+
+                    <div class="opponent opponent-right" id="bot-3">
+                        <div class="bot-avatar">
+                            <img src="https://img.icons8.com/emoji/96/000000/woman-student.png" alt="Ala">
+                            <div class="status-icon hidden">📚</div>
+                        </div>
+                        <div class="bot-info">
+                            <span class="bot-name">ئاڵا (زیرەک)</span>
+                            <div class="health-bar">
+                                <div class="health-fill" id="hp-bot-3" style="width: 100%;"></div>
+                            </div>
+                            <span class="hp-text" id="text-bot-3">80%</span>
+                        </div>
+                         <div class="bot-hand-visual right-hand">
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                            <div class="card-back"></div>
+                        </div>
+                    </div>
+
+                </div> </div>
+        </div>
+
+        <div class="player-hud">
+            
+            <div class="player-stats-panel">
+                <div class="avatar-circle">👤</div>
+                <div class="stats-details">
+                    <div class="stat-row">
+                        <span>وزە (ATP):</span>
+                        <div class="p-health-bar">
+                            <div class="p-health-fill" id="player-hp-bar" style="width: 100%;"></div>
+                        </div>
+                        <span id="player-hp-text">100</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>سەبر:</span>
+                        <div class="p-mana-bar">
+                            <div class="p-mana-fill" id="player-mana-bar" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hand-wrapper">
+                <div class="cards-container" id="player-hand">
+                    </div>
+            </div>
+
+            <div id="game-messages"></div>
+        </div>
+
+        <div id="modal-farhad" class="modal hidden">
+            <div class="modal-content farhad-theme">
+                <div class="modal-header">
+                    <h2>⚠️ ئاگاداری!</h2>
+                </div>
+                <div class="modal-body">
+                    <img src="https://img.icons8.com/emoji/96/000000/lion.png" class="shake-img" alt="Lion">
+                    <h3>د. فەرهاد هاتە ژوورەوە!</h3>
+                    <p>"خارە ئەمە چییە؟ هەموو شتێک تێکەڵ بوو!"</p>
+                    <p>یەکێک هەڵبژێرە:</p>
+                </div>
+                <div class="modal-actions">
+                    <button class="choice-btn" onclick="resolveEvent('dance')">سەماکردن (-10 وزە)</button>
+                    <button class="choice-btn" onclick="resolveEvent('run')">ڕاکردن (نۆرەت دەفەوتێت)</button>
+                    <button class="choice-btn" onclick="resolveEvent('chaos')">تێکەڵکردنەوەی کارتەکان</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="modal-gameover" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="end-title">یاری تەواو بوو!</h2>
+                <p id="end-msg">...</p>
+                <button class="restart-btn" onclick="location.reload()">دیسان یاریکردن 🔄</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
